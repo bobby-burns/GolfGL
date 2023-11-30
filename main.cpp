@@ -2,8 +2,15 @@
 #include "GameManager.h"
 #include "utils.hpp"
 #include "GolfBall.h"
+#if defined(__APPLE__)
 #include <GLUT/GLUT.h>
-#include <OpenGL/OpenGL.h>
+#include <OpenGL/glu.h>
+#include <OpenGL/gl.h>
+#else
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
+#endif
 #include <cstdio>
 #include <iostream>
 
