@@ -13,7 +13,7 @@ else
 #  OSX
 ifeq "$(shell uname)" "Darwin"
 RES=$(shell uname -r|sed -E 's/(.).*/\1/'|tr 12 21)
-CFLG= -Wall -Wno-deprecated-declarations -DRES=$(RES) 
+CFLG= -Wall -Wno-deprecated-declarations -DRES=$(RES) -g
 LIBS=-framework GLUT -framework OpenGL
 #  Linux/Unix/Solaris
 else

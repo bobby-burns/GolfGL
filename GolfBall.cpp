@@ -41,6 +41,9 @@ void GolfBall::drawBall(){
   glColor3f(0.8, 0.8, 0.8);
   glTranslatef(pos.x,pos.y,pos.z);
 
+  float specReflection[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+
   glutSolidSphere(radius, 30, 30);
 
   glPopMatrix();

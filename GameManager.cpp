@@ -90,7 +90,7 @@ utils::vec3 getTriNormal(utils::vec3 p1,utils::vec3 p2, utils::vec3 p3){
 
 
 
-void drawFairway(utils::vec3*** verts) {
+void GameManager::drawFairway(utils::vec3*** verts) {
 
 
   glPushMatrix();
@@ -102,6 +102,7 @@ void drawFairway(utils::vec3*** verts) {
 
 
   glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, fairway_tex);
 
   glBegin(GL_TRIANGLES);
   float specReflection[] = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -150,8 +151,8 @@ void GameManager::setGameState(utils::Scenes scene){
 
   switch(scene){
     case utils::AIMING: {
-
-                          LoadTexBMP("fairway_texture.bmp");
+                          skybox_tex = LoadTexBMP("cubemap.bmp");
+                          fairway_tex = LoadTexBMP("fairway_texture.bmp");
                           gball.doGravity(false);
                           setCameraPos((utils::vec3){0,5,-10});
                           fairwayVerts = genFairway(500, 100);
@@ -163,15 +164,101 @@ void GameManager::setGameState(utils::Scenes scene){
   currentScene = scene;
 
 }
-void skyBox(){
+void GameManager::skyBox(){
   // glDepthRange(1, 1);
   glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, skybox_tex);
   glPushMatrix();
-  GLUquadric* qobj = gluNewQuadric();
-  glTranslated(0,0,0);
-  gluQuadricTexture(qobj,true);
-  gluQuadricNormals(qobj,GL_SMOOTH);
-  gluSphere(qobj,100,100,100);
+  glScalef(100, 100, 100);
+  glTranslatef(0.0, 0.0, 0.0);
+  glColor3f(1.0,1.0,1.0);
+  glBegin(GL_QUADS);
+    // Front face
+    glTexCoord2f(0.251, 0.666);
+    glVertex3f(-1.0, 1.0, -1.0);
+
+    glTexCoord2f(0.251, 0.333);
+    glVertex3f(-1.0, -1.0, -1.0);
+
+    glTexCoord2f(0.499, 0.333);
+    glVertex3f(1.0, -1.0, -1.0);
+
+    glTexCoord2f(0.499, 0.666);
+    glVertex3f(1.0, 1.0, -1.0);
+
+
+    // Right Face
+    glTexCoord2f(0.49, 0.659);
+    glVertex3f(1.0, 1.0, -1.0);
+
+    glTexCoord2f(0.49, 0.34);
+    glVertex3f(1.0, -1.0, -1.0);
+
+    glTexCoord2f(0.74, 0.34);
+    glVertex3f(1.0, -1.0, 1.0);
+
+    glTexCoord2f(0.74, 0.659);
+    glVertex3f(1.0, 1.0, 1.0);
+
+
+    // Left Face
+    glTexCoord2f(0, 0.659);
+    glVertex3f(-1.0,1.0,1.0);
+
+    glTexCoord2f(0, 0.34);
+    glVertex3f(-1.0,-1.0,1.0);
+
+    glTexCoord2f(0.25, 0.34);
+    glVertex3f(-1.0,-1.0,-1.0);
+
+    glTexCoord2f(0.25, 0.659);
+    glVertex3f(-1.0,1.0,-1.0);
+
+
+    // Top Face
+    glTexCoord2f(0.259,0.9999);
+    glVertex3f(-1.0,1.0,1.0);
+
+    glTexCoord2f(0.259,0.659);
+    glVertex3f(-1.0,1.0,-1.0);
+
+    glTexCoord2f(0.4999,0.659);
+    glVertex3f(1.0,1.0,-1.0);
+
+    glTexCoord2f(0.4999,0.9999);
+    glVertex3f(1.0,1.0,1.0);
+
+    // Bottom Face
+    glTexCoord2f(0.259, 0.34);
+    glVertex3f(-1.0, -1.0, -1.0);
+
+    glTexCoord2f(0.259, 0.01);
+    glVertex3f(-1.0, -1.0, 1.0);
+
+    glTexCoord2f(0.49, 0.01);
+    glVertex3f(1.0, -1.0, 1.0);
+
+    glTexCoord2f(0.49, 0.34);
+    glVertex3f(1.0, -1.0, -1.0);
+
+    
+    // Back Face 
+    glTexCoord2f(0.75, 0.659);
+    glVertex3f(1.0,1.0,1.0);
+
+    glTexCoord2f(0.75, 0.34);
+    glVertex3f(1.0,-1.0,1.0);
+
+    glTexCoord2f(0.99, 0.34);
+    glVertex3f(-1.0,-1.0,1.0);
+
+    glTexCoord2f(0.99, 0.659);
+    glVertex3f(-1.0,1.0,1.0);
+
+    
+  glEnd();
+  
+  glDisable(GL_TEXTURE_2D);
 
   glPopMatrix();
   // glDepthRange(0, 1);
@@ -181,7 +268,7 @@ void GameManager::draw() {
 
   switch(currentScene){
     case utils::AIMING: {
-                          // skyBox();
+                          skyBox();
                           gball.drawBall();
                           drawPlane();
                           drawFairway(fairwayVerts);

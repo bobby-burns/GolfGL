@@ -42,8 +42,9 @@ static void display() {
 
 void initLighting(){
   glEnable(GL_LIGHT0);
+  glClearColor(0.0,0.0,0.0,0.0);
   glEnable(GL_COLOR_MATERIAL);
-      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+  glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
 
     // Create light components
     GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -89,7 +90,7 @@ void reshape(int width,int height)
 
    glLoadIdentity();
 
-   gluPerspective(90, asp, 0.1, 100);
+   gluPerspective(90, asp, 0.1, 200);
 
    glMatrixMode(GL_MODELVIEW);
 

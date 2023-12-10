@@ -23,12 +23,16 @@ class GameManager {
     void draw();
     void camera();
   private:
+    void skyBox();
+    void drawFairway(utils::vec3*** verts);
     GolfBall gball;
     utils::vec3 cameraPos;
     double deltaTime;
     int startTime;
     utils::Scenes currentScene;
     utils::vec3*** fairwayVerts;
+    unsigned int fairway_tex;
+    unsigned int skybox_tex;
     
 
 
