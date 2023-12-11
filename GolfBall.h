@@ -5,7 +5,7 @@
 class GolfBall {
   
   public:
-    GolfBall(float radius = 2);
+    GolfBall(float radius = 1);
     // Position getter and setter
     utils::vec3 getPos();
     void setPos(utils::vec3 pos);
@@ -19,11 +19,15 @@ class GolfBall {
 
     void applyPhysics(double deltaTime);
     void doGravity(bool val);
+    bool getGravity();
+    void setAngle(float angle);
+
   private:
     utils::vec3 pos;
     utils::vec3 vel;
     float radius;
     bool applyGravity;
+    float angle;
 
 
 };

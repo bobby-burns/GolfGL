@@ -1,5 +1,7 @@
 #pragma once
 #include "utils.hpp"
+#include <ctime>
+#include <cstdlib>
 
 // THIS IS NOT ORIGINAL CODE, ALL CODE WAS TAKEN FROM THE FOLLOWING WEBSITE AND HAS BEEN EDITED SLIGHTLY
 // https://en.wikipedia.org/wiki/Perlin_noise

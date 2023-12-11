@@ -44,6 +44,8 @@ namespace utils {
 
   enum Scenes {
     AIMING,
+    POWER,
+    HIT
 
   };
 

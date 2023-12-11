@@ -32,6 +32,7 @@ static void display() {
   gm.camera();
   gm.draw();
 
+  glColor3f(1,1,1);
   glWindowPos2i(5,5);
   utils::Print("%f",gm.getGolfBall()->getPos().y);
   
@@ -40,24 +41,6 @@ static void display() {
 
 }
 
-void initLighting(){
-  glEnable(GL_LIGHT0);
-  glClearColor(0.0,0.0,0.0,0.0);
-  glEnable(GL_COLOR_MATERIAL);
-  glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-
-    // Create light components
-    GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
-    GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-    GLfloat position[] = { 0.0f, 10.0f, -5.0f, 1.0f };
-
-    // Assign created components to GL_LIGHT0
-    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-    glLightfv(GL_LIGHT0, GL_POSITION, position);
-}
 
 
 
@@ -67,7 +50,7 @@ void initGame(){
 
   gm = GameManager();
 
-  initLighting();
+  gm.Lighting();
 
   gm.setGameState(utils::AIMING);
   
@@ -90,7 +73,7 @@ void reshape(int width,int height)
 
    glLoadIdentity();
 
-   gluPerspective(90, asp, 0.1, 200);
+   gluPerspective(90, asp, 0.1, 1500);
 
    glMatrixMode(GL_MODELVIEW);
 
@@ -117,7 +100,7 @@ int main(int argc,char* argv[])
 
    //  Request double buffered, true color window with Z buffering at 800x600
    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-   glutInitWindowSize(800,600);
+   glutInitWindowSize(1920,1080);
    glutCreateWindow("Robert Burns");
 #ifdef USEGLEW
    //  Initialize GLEW

@@ -17,6 +17,7 @@ GolfBall::GolfBall(float _radius){
  pos = empty;
  vel = empty;
  applyGravity = true;
+ angle = 0;
 }
 
 utils::vec3 GolfBall::getPos(){
@@ -39,10 +40,12 @@ void GolfBall::drawBall(){
   glPushMatrix();
 
   glColor3f(0.8, 0.8, 0.8);
+  // glRotatef(angle,0,1,0);
   glTranslatef(pos.x,pos.y,pos.z);
 
-  float specReflection[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+  float specReflection[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+  glMaterialfv(GL_FRONT, GL_SPECULAR,specReflection);
+  glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
   glutSolidSphere(radius, 30, 30);
 
@@ -60,14 +63,31 @@ void GolfBall::applyPhysics(double deltaTime){
    // gravity
   utils::vec3 gravity = {0,-9.8,0};
 
-  if (applyGravity && vel.y > -9.8){
-    vel = vel + gravity;
+  utils::vec3 wind_resistance = {0,0,-3};
+
+  if (applyGravity && vel.y > gravity.y * deltaTime * 10){
+    vel.y = vel.y + gravity.y * deltaTime;
+  }
+  if (applyGravity && vel.z > 3*deltaTime){
+    vel.z = vel.z + wind_resistance.z * deltaTime;
   }
 
-  pos = pos + (vel * (float)deltaTime);
+  pos = pos + vel ;
+  if (angle != 0)
+  pos.x = pos.z/tan(angle);
   
 
 }
+
+bool GolfBall::getGravity(){
+  return applyGravity;
+}
+
+void GolfBall::setAngle(float a){
+  angle = a;
+}
+
+
 
 
 
