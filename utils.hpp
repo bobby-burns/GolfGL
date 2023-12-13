@@ -2,6 +2,13 @@
 #include <iostream>
 #include <fstream>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <math.h>
+
+
 // GLEW _MUST_ be included first
 #ifdef USEGLEW
 #include <GL/glew.h>
@@ -85,7 +92,7 @@ static inline void Print(const char* format , ...)
    va_end(args);
    //  Display the characters one at a time at the current raster position
    while (*ch)
-      glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,*ch++);
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,*ch++);
 }
 
 }

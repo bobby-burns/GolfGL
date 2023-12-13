@@ -61,14 +61,14 @@ void GolfBall::doGravity(bool val){
 void GolfBall::applyPhysics(double deltaTime){
 
    // gravity
-  utils::vec3 gravity = {0,-9.8,0};
+  utils::vec3 gravity = {0,-5.8,0};
 
-  utils::vec3 wind_resistance = {0,0,-3};
+  utils::vec3 wind_resistance = {0,0,-2};
 
   if (applyGravity && vel.y > gravity.y * deltaTime * 10){
     vel.y = vel.y + gravity.y * deltaTime;
   }
-  if (applyGravity && vel.z > 3*deltaTime){
+  if (applyGravity && vel.z > wind_resistance.z*2*deltaTime){
     vel.z = vel.z + wind_resistance.z * deltaTime;
   }
 

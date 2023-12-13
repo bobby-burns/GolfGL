@@ -1,6 +1,7 @@
 //  CSCIx229 library
 //  Willem A. (Vlakkies) Schreuder
 #include "CSCIx229.h"
+#include <OpenGL/OpenGL.h>
 
 //
 //  Load texture from BMP file
@@ -87,7 +88,7 @@ unsigned int LoadTexBMP(const char* file)
    glBindTexture(GL_TEXTURE_2D,texture);
    //  Copy image
    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,dx,dy,0,GL_RGB,GL_UNSIGNED_BYTE,image);
-   if (glGetError()) printf("Error in glTexImage2D %s %dx%d\n",file,dx,dy);
+   if (glGetError()) printf("Error in glTexImage2D %s %dx%d ERROR: %u\n",file,dx,dy,glGetError());
    //  Scale linearly when image size doesn't match
    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);

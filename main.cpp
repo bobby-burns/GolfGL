@@ -11,8 +11,6 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #endif
-#include <cstdio>
-#include <iostream>
 
 GameManager gm;
 
@@ -31,11 +29,12 @@ static void display() {
 
   gm.camera();
   gm.draw();
-
-  glColor3f(1,1,1);
-  glWindowPos2i(5,5);
-  utils::Print("%f",gm.getGolfBall()->getPos().y);
   
+  if (gm.getGameState() != utils::HIT){
+    glColor3f(1,1,1);
+    glWindowPos2i(glutGet(GLUT_WINDOW_WIDTH)/2-35,glutGet(GLUT_WINDOW_HEIGHT)/5);
+    utils::Print("Score: %i",gm.gameScore);
+  }
    glFlush();
   glutSwapBuffers();
 
@@ -50,6 +49,8 @@ void initGame(){
 
   gm = GameManager();
 
+  gm.init();
+
   gm.Lighting();
 
   gm.setGameState(utils::AIMING);
@@ -61,6 +62,11 @@ void specialC(int key, int x, int y){
   gm.specialCallback(key);
   glutPostRedisplay();
 }
+
+void keyb(unsigned char key, int x, int y) {
+  gm.keyboardCallback(key,x,y);
+  glutPostRedisplay();
+};
 
 void reshape(int width,int height)
 {
@@ -86,6 +92,7 @@ void reshape(int width,int height)
 static void update(){
   
   gm.applyPhysics();
+  gm.checkCollisions();
 
 
   glutPostRedisplay();
@@ -114,6 +121,7 @@ int main(int argc,char* argv[])
    glutReshapeFunc(reshape);
    glutIdleFunc(update);
    glutSpecialFunc(specialC);
+   glutKeyboardFunc(keyb);
    glEnable(GL_LIGHTING);
    glEnable(GL_NORMALIZE);
    initGame();

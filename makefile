@@ -1,5 +1,5 @@
 # Example 21
-EXE=main
+EXE=final
 
 # Main target
 all: $(EXE)
@@ -33,10 +33,10 @@ loadtexbmp.o: loadtexbmp.c
 .c.o:
 	gcc -c $(CFLG)  $<
 .cpp.o:
-	g++ -c $(CFLG) -std=c++17 $<
+	g++ -c $(CFLG) -std=c++17 -lm $<
 
 #  Link
-main:main.o GolfBall.o GameManager.o loadtexbmp.o
+final:main.o GolfBall.o GameManager.o loadtexbmp.o
 	gcc $(CFLG) -o $@ $^ -lstdc++ $(LIBS)
 
 #  Clean
